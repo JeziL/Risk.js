@@ -1,6 +1,6 @@
 # Risk.js
 
-A web application for Monte-Carlo modeling and simulation.
+A web application for Monte-Carlo modeling and simulation. [[Demo]](https://jezil.github.io/Risk.js)
 
 ![](imgs/demo.gif)
 
