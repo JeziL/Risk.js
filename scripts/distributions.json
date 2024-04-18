@@ -1,0 +1,150 @@
+[
+    {
+        "name": "Normal",
+        "inputs": [
+            { "name": "mean", "default": 0 },
+            { "name": "std", "default": 1 }
+        ]
+    },
+    {
+        "name": "Uniform",
+        "inputs": [
+            { "name": "a", "default": -1 },
+            { "name": "b", "default": 1 }
+        ]
+    },
+    {
+        "name": "Triangular",
+        "inputs": [
+            { "name": "a", "default": -1 },
+            { "name": "b", "default": 0 },
+            { "name": "c", "default": 1 }
+        ]
+    },
+    {
+        "name": "Beta",
+        "inputs": [
+            { "name": "alpha", "default": 1 },
+            { "name": "beta", "default": 1 }
+        ]
+    },
+    {
+        "name": "CentralF",
+        "jstat_api": "centralF",
+        "inputs": [
+            { "name": "df1", "default": 1 },
+            { "name": "df2", "default": 1 }
+        ]
+    },
+    {
+        "name": "Cauchy",
+        "inputs": [
+            { "name": "local", "default": 0 },
+            { "name": "scale", "default": 1 }
+        ]
+    },
+    {
+        "name": "ChiSquare",
+        "inputs": [
+            { "name": "dof", "default": 1 }
+        ]
+    },
+    {
+        "name": "Exponential",
+        "inputs": [
+            { "name": "rate", "default": 1 }
+        ]
+    },
+    {
+        "name": "Gamma",
+        "inputs": [
+            { "name": "shape", "default": 1 },
+            { "name": "scale", "default": 1 }
+        ]
+    },
+    {
+        "name": "InvGamma",
+        "inputs": [
+            { "name": "shape", "default": 1 },
+            { "name": "scale", "default": 1 }
+        ]
+    },
+    {
+        "name": "Kumaraswamy",
+        "inputs": [
+            { "name": "alpha", "default": 1 },
+            { "name": "beta", "default": 1 }
+        ]
+    },
+    {
+        "name": "LogNormal",
+        "inputs": [
+            { "name": "mu", "default": 0 },
+            { "name": "sigma", "default": 1 }
+        ]
+    },
+    {
+        "name": "Pareto",
+        "inputs": [
+            { "name": "scale", "default": 1 },
+            { "name": "shape", "default": 1 }
+        ]
+    },
+    {
+        "name": "StudentT",
+        "inputs": [
+            { "name": "dof", "default": 1 }
+        ]
+    },
+    {
+        "name": "Tukey",
+        "inputs": [
+            { "name": "nmeans", "default": 2 },
+            { "name": "dof", "default": 1 }
+        ]
+    },
+    {
+        "name": "Weibull",
+        "inputs": [
+            { "name": "scale", "default": 1 },
+            { "name": "shape", "default": 1 }
+        ]
+    },
+    {
+        "name": "Binomial",
+        "inputs": [
+            { "name": "n", "default": 10 },
+            { "name": "p", "default": 0.5 }
+        ]
+    },
+    {
+        "name": "NegBinomial",
+        "jstat_api": "negbin",
+        "inputs": [
+            { "name": "r", "default": 1 },
+            { "name": "p", "default": 0.5 }
+        ]
+    },
+    {
+        "name": "Hypergeometric",
+        "jstat_api": "hypgeom",
+        "inputs": [
+            { "name": "N", "default": 10 },
+            { "name": "m", "default": 0.5 },
+            { "name": "n", "default": 1 }
+        ]
+    },
+    {
+        "name": "Poisson",
+        "inputs": [
+            { "name": "l", "default": 1 }
+        ]
+    },
+    {
+        "name": "ArcSine",
+        "inputs": [
+            { "name": "a", "default": 0 },
+            { "name": "b", "default": 1 }
+        ]
+    }
+]
