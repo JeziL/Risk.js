@@ -16,20 +16,21 @@ Histogram.prototype.onDrawBackground = function (ctx) {
 };
 
 Histogram.prototype.onExecute = function () {
-    let rv = this.getInputData(0);
+    const rv = this.getInputData(0);
     if (rv !== undefined) {
         rv.sample();
-        let chart = document.createElement("div");
+        const chart = document.createElement("div");
         chart.style.width = "600px";
         chart.style.height = "400px";
         chart.id = "histchart" + this.id;
-        var myChart = echarts.init(chart);
+        const myChart = echarts.init(chart);
 
-        var bins = ecStat.histogram(rv.samples);
+        const bins = ecStat.histogram(rv.samples);
+        console.log(bins);
 
-        var option = {
+        const option = {
             title: {
-                text: rv.name,
+                text: this.title,
                 left: "center",
                 top: "4%",
                 textStyle: {
@@ -68,15 +69,14 @@ Histogram.prototype.onExecute = function () {
 
         this.frame = chart.getElementsByTagName("canvas")[0];
         this.chart = myChart;
-        this.name = rv.name;
         this.setDirtyCanvas(true);
     }
 };
 
 Histogram.prototype.onWidget = function (e, widget) {
     if (widget.name == "resize" && this.frame) {
-        var width = this.frame.width;
-        var height = this.frame.height;
+        let width = this.frame.width;
+        let height = this.frame.height;
 
         if (!width && this.frame.videoWidth != null) {
             width = this.frame.videoWidth;
@@ -131,7 +131,7 @@ function downloadBase64File(base64Data, fileName) {
 
 Histogram.prototype.getExtraMenuOptions = function () {
     const that = this;
-    const filename = `${(that.name !== "") ? that.name : "chart"}_hist.png`;
+    const filename = `${that.title}.png`;
     return [{
         content: "Save...",
         callback: function () {
