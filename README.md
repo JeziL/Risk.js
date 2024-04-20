@@ -7,7 +7,7 @@ A web application for Monte-Carlo modeling and simulation. [[Demo]](https://jezi
 **Dependencies**
 
 - [Apache ECharts](https://github.com/apache/echarts)
-- [ecStat](https://github.com/ecomfe/echarts-stat)
+- [ecStat](https://github.com/ecomfe/echarts-stat) [[Fork]](https://github.com/JeziL/echarts-stat)
 - [jStat](https://github.com/jstat/jstat)
 - [litegraph.js](https://github.com/jagenjo/litegraph.js)
 

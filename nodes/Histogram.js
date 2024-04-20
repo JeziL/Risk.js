@@ -25,9 +25,7 @@ Histogram.prototype.onExecute = function () {
         chart.id = "histchart" + this.id;
         const myChart = echarts.init(chart);
 
-        const bins = ecStat.histogram(rv.samples);
-        console.log(bins);
-
+        const bins = ecStat.histogram(rv.samples, { padBounds: true });
         const option = {
             title: {
                 text: this.title,
