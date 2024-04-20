@@ -8,7 +8,7 @@ function ShowSample() {
 ShowSample.title = "Show Sample";
 
 ShowSample.prototype.onExecute = function () {
-    let rv = this.getInputData(0);
+    const rv = this.getInputData(0);
     if (rv !== undefined) {
         rv.sample();
         this.setOutputData(0, rv.sampledValue);
@@ -17,6 +17,21 @@ ShowSample.prototype.onExecute = function () {
         this.setOutputData(0, null);
         this.setOutputData(1, null);
     }
+    this.rv = rv;
 }
+
+ShowSample.prototype.getExtraMenuOptions = function () {
+    const that = this;
+    return [
+        {
+            content: "Export data...",
+            callback: function () {
+                if (!that.rv) return;
+                const csv = that.rv.samples.join("\n");
+                downloadFile(csv, `sample_data.csv`);
+            }
+        }
+    ];
+};
 
 LiteGraph.registerNodeType("Risk/Output/ShowSample", ShowSample);

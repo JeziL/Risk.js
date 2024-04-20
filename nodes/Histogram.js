@@ -67,6 +67,7 @@ Histogram.prototype.onExecute = function () {
 
         this.frame = chart.getElementsByTagName("canvas")[0];
         this.chart = myChart;
+        this.rv = rv;
         this.setDirtyCanvas(true);
     }
 };
@@ -96,48 +97,26 @@ Histogram.prototype.show = function () {
     }
 };
 
-// By ChatGPT
-function downloadBase64File(base64Data, fileName) {
-    // Split the base64 string into the actual base64 data and the MIME type
-    const [mimeInfo, base64] = base64Data.split(',');
-    const mime = mimeInfo.match(/:(.*?);/)[1];
-
-    // Convert base64 to raw binary data held in a string
-    const byteString = atob(base64);
-
-    // Convert that text into a byte array
-    const byteNumbers = new Array(byteString.length);
-    for (let i = 0; i < byteString.length; i++) {
-        byteNumbers[i] = byteString.charCodeAt(i);
-    }
-    const byteArray = new Uint8Array(byteNumbers);
-
-    // Create a blob with the byte array
-    const blob = new Blob([byteArray], { type: mime });
-
-    // Create a link element for download
-    const link = document.createElement('a');
-    link.href = window.URL.createObjectURL(blob);
-    link.download = fileName;
-    link.style.display = 'none';
-
-    // Append the link, trigger the click, then remove the link
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-}
-
 Histogram.prototype.getExtraMenuOptions = function () {
     const that = this;
-    const filename = `${that.title}.png`;
-    return [{
-        content: "Save...",
-        callback: function () {
-            if (!that.chart) return;
-            const imgData = that.chart.getDataURL({ type: "png" });
-            downloadBase64File(imgData, filename);
+    return [
+        {
+            content: "Save...",
+            callback: function () {
+                if (!that.chart) return;
+                const imgData = that.chart.getDataURL({ type: "png" });
+                downloadFile(imgData, `${that.title}.png`, true);
+            }
+        },
+        {
+            content: "Export data...",
+            callback: function () {
+                if (!that.rv) return;
+                const csv = that.rv.samples.join("\n");
+                downloadFile(csv, `${that.title}_data.csv`);
+            }
         }
-    }];
+    ];
 };
 
 LiteGraph.registerNodeType("Risk/Output/Histogram", Histogram);
