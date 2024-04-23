@@ -2,7 +2,7 @@
 
 A web application for Monte-Carlo modeling and simulation. [[Demo]](https://jezil.github.io/Risk.js)
 
-![](imgs/demo.gif)
+![](.github/demo.gif)
 
 **Dependencies**
 
@@ -11,4 +11,5 @@ A web application for Monte-Carlo modeling and simulation. [[Demo]](https://jezi
 - [jStat](https://github.com/jstat/jstat)
 - [litegraph.js](https://github.com/jagenjo/litegraph.js)
 
-[*Favicon created by Pixelmeetup - Flaticon*](https://www.flaticon.com/free-icons/graph)
+*Project structure from [Frontend Boilerplates](https://github.com/CKGrafico/Frontend-Boilerplates).*
+[*Favicon created by Pixelmeetup - Flaticon.*](https://www.flaticon.com/free-icons/graph)
