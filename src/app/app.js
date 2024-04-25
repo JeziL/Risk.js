@@ -8,6 +8,7 @@ import '../nodes/Distributions';
 import '../nodes/ShowSample';
 import '../nodes/Histogram';
 import '../nodes/Statistics';
+import '../nodes/Sensitivity';
 import '../nodes/SimulationCounter';
 import '../nodes/Operators';
 import '../nodes/utils';

@@ -88,7 +88,14 @@ class SampleContext {
       for (let i = 0; i < binCounts; i++) {
         means.push(jStat(orderedTargets.slice(i * binLen, (i + 1) * binLen)).mean());
       }
-      edges.push([jStat(means).min(), jStat(means).max()]);
+      edges.push({ name: rv.name, edges: [jStat(means).min(), jStat(means).max()] });
+    });
+    edges.sort((a, b) => {
+      const barLen = Math.abs(a.edges[1] - a.edges[0]) - Math.abs(b.edges[1] - b.edges[0]);
+      if (barLen !== 0) {
+        return barLen;
+      }
+      return a.name.localeCompare(b.name);
     });
     return edges;
   }
