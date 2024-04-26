@@ -57,48 +57,61 @@ elem.id = 'LGEditorTopBarSelector';
 elem.className = 'selector';
 elem.innerHTML = '';
 elem.innerHTML +=
-  '<button class="btn" id="load">Load</button><button class="btn" id="download">Save</button><input type="file" id="jsonInput" style="display:none;" accept=".json">';
+  '<button class="btn" id="load">Load</button><button class="btn" id="download">Save</button><input type="file" id="sceneInput" style="display:none;" accept=".riskscene">';
 editor.tools.appendChild(elem);
 
 elem.querySelector('#download').addEventListener('click', function () {
   var data = JSON.stringify(window.graph.serialize());
-  var file = new Blob([data]);
-  var url = URL.createObjectURL(file);
-  var element = document.createElement('a');
-  element.setAttribute('href', url);
-  element.setAttribute('download', 'sim_senario.json');
-  element.style.display = 'none';
-  document.body.appendChild(element);
-  element.click();
-  document.body.removeChild(element);
-  setTimeout(function () {
-    URL.revokeObjectURL(url);
-  }, 1000 * 60); //wait one minute to revoke url
+  var file = new Blob([data]).stream();
+  var compressedResp = new Response(file.pipeThrough(new CompressionStream('gzip')));
+  compressedResp.blob().then((cdata) => {
+    var url = URL.createObjectURL(cdata);
+    var element = document.createElement('a');
+    element.setAttribute('href', url);
+    element.setAttribute('download', 'sim.riskscene');
+    element.style.display = 'none';
+    document.body.appendChild(element);
+    element.click();
+    document.body.removeChild(element);
+    setTimeout(function () {
+      URL.revokeObjectURL(url);
+    }, 1000 * 60); //wait one minute to revoke url
+  });
 });
 
 // By ChatGPT
 document.getElementById('load').addEventListener('click', function () {
-  const fileInput = document.getElementById('jsonInput');
+  const fileInput = document.getElementById('sceneInput');
   fileInput.click(); // Programmatically open the file dialog
 });
 
-document.getElementById('jsonInput').addEventListener('change', function () {
+document.getElementById('sceneInput').addEventListener('change', function () {
   const file = this.files[0];
   if (file) {
     const reader = new FileReader();
     reader.onload = function (event) {
       try {
-        const jsonObj = JSON.parse(event.target.result);
-        editor.graph.configure(jsonObj);
+        var decResp = new Response(
+          new Blob([event.target.result]).stream().pipeThrough(new DecompressionStream('gzip'))
+        );
+        decResp
+          .blob()
+          .then((jsonData) => {
+            return jsonData.text();
+          })
+          .then((jsonStr) => {
+            const jsonObj = JSON.parse(jsonStr);
+            editor.graph.configure(jsonObj);
+          });
       } catch (error) {
-        alert('Error parsing JSON!');
-        console.error('Error parsing JSON:', error);
+        alert('Error parsing scene!');
+        console.error('Error parsing scene:', error);
       }
     };
     reader.onerror = function () {
       alert('Failed to read file!');
       console.error('An error occurred reading the file:', reader.error);
     };
-    reader.readAsText(file);
+    reader.readAsArrayBuffer(file);
   }
 });
